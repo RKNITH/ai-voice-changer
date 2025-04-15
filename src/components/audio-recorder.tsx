@@ -100,9 +100,104 @@
 
 
 
+// "use client";
+// import BackIcon from "@/icons/back";
+// import { Dispatch, SetStateAction, useEffect } from "react";
+// import { useAudioRecorder } from "react-use-audio-recorder";
+// import "react-use-audio-recorder/dist/index.css";
+
+// export default function MicrophoneRecorder({
+//   setShowRecordingArea,
+//   setFile,
+// }: {
+//   setShowRecordingArea: Dispatch<SetStateAction<boolean>>;
+//   setFile: Dispatch<SetStateAction<File | null>>;
+// }) {
+//   const {
+//     startRecording,
+//     stopRecording,
+//     pauseRecording,
+//     resumeRecording,
+//     recordingBlob,
+//     isRecording,
+//     isPaused,
+//     recordingTime,
+//   } = useAudioRecorder({
+//     onStop: (blob) => {
+//       const audioFile = new File([blob], "audio.wav", { type: "audio/wav" });
+//       setFile(audioFile);
+//     },
+//   });
+
+//   useEffect(() => {
+//     if (recordingBlob) {
+//       const audioFile = new File([recordingBlob], "audio.wav", {
+//         type: "audio/wav",
+//       });
+//       setFile(audioFile);
+//     }
+//   }, [recordingBlob]);
+
+//   return (
+//     <div className="w-full relative flex flex-col items-center justify-center gap-4">
+//       <button
+//         className="absolute left-0 -top-6 flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2 font-medium text-white transition-colors hover:bg-slate-800"
+//         onClick={() => setShowRecordingArea(false)}
+//       >
+//         <BackIcon /> Back
+//       </button>
+
+//       <div className="flex gap-4">
+//         {!isRecording && !isPaused && (
+//           <button
+//             className="px-6 py-2 bg-green-600 text-white rounded-xl"
+//             onClick={startRecording}
+//           >
+//             Start Recording
+//           </button>
+//         )}
+//         {isRecording && (
+//           <button
+//             className="px-6 py-2 bg-yellow-500 text-white rounded-xl"
+//             onClick={pauseRecording}
+//           >
+//             Pause
+//           </button>
+//         )}
+//         {isPaused && (
+//           <button
+//             className="px-6 py-2 bg-blue-500 text-white rounded-xl"
+//             onClick={resumeRecording}
+//           >
+//             Resume
+//           </button>
+//         )}
+//         {(isRecording || isPaused) && (
+//           <button
+//             className="px-6 py-2 bg-red-600 text-white rounded-xl"
+//             onClick={stopRecording}
+//           >
+//             Stop
+//           </button>
+//         )}
+//       </div>
+
+//       <p className="text-sm text-gray-500">
+//         Recording Time: {recordingTime.toFixed(1)} sec
+//       </p>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
 "use client";
 import BackIcon from "@/icons/back";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { useAudioRecorder } from "react-use-audio-recorder";
 import "react-use-audio-recorder/dist/index.css";
 
@@ -118,7 +213,6 @@ export default function MicrophoneRecorder({
     stopRecording,
     pauseRecording,
     resumeRecording,
-    recordingBlob,
     isRecording,
     isPaused,
     recordingTime,
@@ -128,15 +222,6 @@ export default function MicrophoneRecorder({
       setFile(audioFile);
     },
   });
-
-  useEffect(() => {
-    if (recordingBlob) {
-      const audioFile = new File([recordingBlob], "audio.wav", {
-        type: "audio/wav",
-      });
-      setFile(audioFile);
-    }
-  }, [recordingBlob]);
 
   return (
     <div className="w-full relative flex flex-col items-center justify-center gap-4">
