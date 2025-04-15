@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #020617;
+  --foreground: #fff;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+/*---Custom scrollbar---*/
+.scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Define the thumb style */
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 5px;
+}
+
+.audio-recorder {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.pause-resume-button {
+  display: none !important;
+}
+.record-button {
+  background: linear-gradient(45deg, #0f766e 0%, #f0fdfa 100%) !important;
+}
