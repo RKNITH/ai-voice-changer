@@ -193,11 +193,9 @@
 
 
 
-
-
 "use client";
 import BackIcon from "@/icons/back";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useAudioRecorder } from "react-use-audio-recorder";
 import "react-use-audio-recorder/dist/index.css";
 
@@ -208,11 +206,13 @@ export default function MicrophoneRecorder({
   setShowRecordingArea: Dispatch<SetStateAction<boolean>>;
   setFile: Dispatch<SetStateAction<File | null>>;
 }) {
+  // Type assertion to ensure the correct types for the recorder properties
   const {
     startRecording,
     stopRecording,
     pauseRecording,
     resumeRecording,
+    recordingBlob,
     isRecording,
     isPaused,
     recordingTime,
@@ -221,7 +221,25 @@ export default function MicrophoneRecorder({
       const audioFile = new File([blob], "audio.wav", { type: "audio/wav" });
       setFile(audioFile);
     },
-  });
+  }) as {
+    startRecording: () => void;
+    stopRecording: (callBack?: (blob?: Blob | undefined, blobURL?: string | undefined) => void) => void;
+    pauseRecording: () => void;
+    resumeRecording: () => void;
+    recordingBlob: Blob | undefined;
+    isRecording: boolean;
+    isPaused: boolean;
+    recordingTime: number;
+  };
+
+  useEffect(() => {
+    if (recordingBlob) {
+      const audioFile = new File([recordingBlob], "audio.wav", {
+        type: "audio/wav",
+      });
+      setFile(audioFile);
+    }
+  }, [recordingBlob]);
 
   return (
     <div className="w-full relative flex flex-col items-center justify-center gap-4">
